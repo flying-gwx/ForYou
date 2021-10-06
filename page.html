@@ -5,44 +5,43 @@
                 background-repeat: no-repeat;
                 background-size: cover;
                 margin:0 auto;
-                width: 450px;
-                height: 220px;
+                
+                height: 40%;
                 position: relative;
-       z-index: 1;
+       z-index: 3;
             }
         .process_img{  /*显示动态barh*/
             background-image:url("./data/ourpicture.jpg");
             background-repeat: no-repeat;
             background-size: cover;
             margin:0 auto;
-            width: 360px;
-            height: 220px;
+            height: 30%;
             position: relative;
-    z-index: 1;
+    z-index: 2;
         }
       .show_txt{  /*显示文字*/
                 margin:0 auto;
                 background-color: azure;
-       width: 370px;
-                height: 200px;
+                height: 30%;
                 position: relative;
        text-align: center;
-       padding-top: 10px;
+     /*  padding-top: 10px;*/
        z-index: 1;
             }
     </style>
     </head>
     <body>
-        <div class="process_gif" id="process"></div> 
-        <div class="process_img" id="content_1"></div>
+        <div class="process_gif" id="process"></div>
+        <div class = "show_txt", id="content_1"></div> 
+        <div class="process_img" id="content_2"></div>
     </body>
 
-    <!-- <script type="text/javascript">
+    <script type="text/javascript">
         /// 显示文字功能 ----------------------------------
         let divTyping = document.getElementById('content_1'); //通过id获取div节点
         let a = 0;
         timer = 0;
-        str = "我们已经相遇 20 天<br>告白后过了 13 天<br>First Kiss 至今 5 天";
+        str = "梦里有你<br>涵生欢喜";
         function typing () {
          if (a <= str.length) { 
             divTyping.innerHTML = str.slice(0, a++) + '_';
@@ -61,4 +60,4 @@
           // thisdiv.style.backgroundImage = "url('./process_stop.png')"; 
                },2000);
         }
-       </script> -->
+       </script>
