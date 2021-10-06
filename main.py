@@ -38,7 +38,7 @@ def draw(date):
     items = [df_["项目"].values[0]]
     for j in range(1, int(cols/3) ):
         if (df_['天数.{}'.format(j)].values) != df_['天数.{}'.format(j)].values: # check nan
-            print( str(j) +  " break {}".format(df_['天数.{}'.format(j)].values))
+           
             break
         else:
             days.append(int(df_['天数.{}'.format(j)].values[0]))
