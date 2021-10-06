@@ -9,7 +9,7 @@ def QR_myqr():
         colorized = True, # 彩色
         contrast = 1.0, # 对比度
         brightness = 1.0, # 亮度
-        save_name = 'save.jpg', # 保存文件名
+        save_name = 'save1.jpg', # 保存文件名
         
     )
 
