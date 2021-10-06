@@ -7,7 +7,7 @@ import ipdb
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as ani
-file_name = 'foryou_data.xlsx'
+file_name = './data/foryou_data.xlsx'
 
 df = pd.read_excel(file_name)
 cols = df.shape[1]
@@ -17,11 +17,12 @@ t = datetime.datetime(2021,3,15) # 起始日期
 now_str = datetime.datetime.now().strftime('%Y-%m-%d')
 now = datetime.datetime.strptime(now_str, "%Y-%m-%d")
 begin = datetime.datetime.strptime("2021-3-15", "%Y-%m-%d")
-date_time = (now- begin).days
+date_time = (now- begin).days + 1
 
 fig, ax = plt.subplots(figsize=(10,6)) # 画布
 
 plt.rcParams['font.sans-serif'] = ['Microsoft YaHei'] # 字体设为微软雅黑
+
 timeSlot = [x for x in range(0,date_time)] # 时间轴
 colors = ['#ADD8E6', '#DC143C', '#FFC0CB', '#DFD7D7']  # 颜色列表
 
@@ -38,15 +39,15 @@ def draw(date):
     items = [df_["项目"].values[0]]
     for j in range(1, int(cols/3) ):
         if (df_['天数.{}'.format(j)].values) != df_['天数.{}'.format(j)].values: # check nan
-           
             break
         else:
             days.append(int(df_['天数.{}'.format(j)].values[0]))
             items.append(df_["项目.{}".format(j)].values[0])
     # 绘制条形图 ------
-  #  ipdb.set_trace()
+
     ax.clear() # 重绘
     ax.barh(items, days, color = colors)
+    ax.set_title("老高(^^)/ 和 \(^^)小涵", fontsize = 25 )
     for y, (x,name) in enumerate(zip(days,items)): # 系列标注
             ax.text(x, y, "%s天" % x, size=16)
             if x > 1:
@@ -57,6 +58,6 @@ def draw(date):
 
 #draw(100)
 #plt.savefig('test.png')
-animator = ani.FuncAnimation(fig, draw, frames=timeSlot ,interval = 80, repeat_delay = 2000) # interval时间间隔
+animator = ani.FuncAnimation(fig, draw, frames=timeSlot + [timeSlot[-1]] *20 ,interval = 80, repeat_delay = 2000) # interval时间间隔
 
-animator.save('test.gif',fps=10)
+animator.save('./data/test.gif',fps=8, savefig_kwargs={'bbox_inches':'tight'})
