@@ -4,7 +4,8 @@
 }
 
 body {
-	background: url(../data/backgroundstar.jpg);
+	background-image: url(../data/phonestar.jpg);
+	background-repeat:no-repeat;
 }
 
 
