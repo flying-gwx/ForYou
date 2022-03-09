@@ -7,12 +7,18 @@ import ipdb
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as ani
-file_name = './data/foryou_data.xlsx'
+# file_name = './data/foryou_data.xlsx'
 
-df = pd.read_excel(file_name)
-cols = df.shape[1]
+# df = pd.read_excel(file_name)
+# cols = df.shape[1]
 
-df['日期文本'] = df['日期'].apply(lambda x: str(x)[:10])
+item0 = {'project':'相遇', 'date':datetime.datetime.strptime('2021-3-15', "%Y-%m-%d")}
+item1 = {'project':'我们在一起', 'date':datetime.datetime.strptime('2021-3-30', "%Y-%m-%d")}
+item2 = {'project':'第一次相拥而眠','date':datetime.datetime.strptime('2021-5-20', "%Y-%m-%d")}
+item3 = {'project':'第一次一起旅行', 'date':datetime.datetime.strptime('2021-9-18', "%Y-%m-%d")}
+all_items = [item0, item1,item2, item3]
+
+#df['日期文本'] = df['日期'].apply(lambda x: str(x)[:10])
 t = datetime.datetime(2021,3,15) # 起始日期
 now_str = datetime.datetime.now().strftime('%Y-%m-%d')
 now = datetime.datetime.strptime(now_str, "%Y-%m-%d")
@@ -30,20 +36,27 @@ colors = ['#ADD8E6', '#DC143C', '#FFC0CB', '#DFD7D7']  # 颜色列表
 def draw(date):
    # print(date)
     # 数据处理 ------
-    current_date = (t + datetime.timedelta(days=date)).strftime("%Y-%m-%d")
-    df_ = df[df['日期文本'].eq(current_date)]
-   # ipdb.set_trace()
- #   ipdb.set_trace()
-    days = [int(df_['天数'].values[0])]
+    current_date_str = (t + datetime.timedelta(days=date)).strftime("%Y-%m-%d")
+    current_date = t + datetime.timedelta(days=date)
+    # df_ = df[df['日期文本'].eq(current_date)]
     
-    items = [df_["项目"].values[0]]
-    for j in range(1, int(cols/3) ):
-        if (df_['天数.{}'.format(j)].values) != df_['天数.{}'.format(j)].values: # check nan
-            break
-        else:
-            days.append(int(df_['天数.{}'.format(j)].values[0]))
-            items.append(df_["项目.{}".format(j)].values[0])
-    # 绘制条形图 ------
+    # days = [int(df_['天数'].values[0])]
+    
+    # items = [df_["项目"].values[0]]
+    # for j in range(1, int(cols/3) ):
+    #     if (df_['天数.{}'.format(j)].values) != df_['天数.{}'.format(j)].values: # check nan
+    #         break
+    #     else:
+    #         days.append(int(df_['天数.{}'.format(j)].values[0]))
+    #         items.append(df_["项目.{}".format(j)].values[0])
+    # # 绘制条形图 ------
+    items =[all_items[0]['project']]
+    days = [(current_date - t).days]
+    for j in range(1, len(all_items)):
+        day = (current_date - all_items[j]['date']).days + 1
+        if  day > 0:
+            items.append(all_items[j]['project'])
+            days.append(day)
 
     ax.clear() # 重绘
     ax.barh(items, days, color = colors)
@@ -52,7 +65,7 @@ def draw(date):
             ax.text(x, y, "%s天" % x, size=16)
             if x > 1:
                 ax.text(x, y, name, size=16, ha = 'right')
-    ax.text(1, 1.01, current_date, transform = ax.transAxes, size= 20, ha='right') # 滚动时间
+    ax.text(1, 1.01, current_date_str, transform = ax.transAxes, size= 20, ha='right') # 滚动时间
     ax.get_xaxis().set_visible(False) # 隐藏坐标轴
     ax.get_yaxis().set_visible(False)
 
